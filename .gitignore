@@ -11,6 +11,7 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+problems-report.html
 
 # IntelliJ related
 *.iml
@@ -38,6 +39,11 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Ignore generated files from build_runner and other generators
+*.g.dart
+*.freezed.dart
+*.gen.dart
 
 # Android Studio will place build artifacts here
 /android/app/debug

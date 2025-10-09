@@ -1,58 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kowairo/core/routing/app_router.dart';
+import 'package:kowairo/gen/colors.gen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    // IMPORTANT: Use environment variables for these, not hardcoded strings
+    url: 'https://oizddrgiixauodoqwxwx.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9pemRkcmdpaXhhdW9kb3F3eHd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwNTk1NDMsImV4cCI6MjA3MDYzNTU0M30.jA9fc1R0i0DgpRWgbDfw-9ObK8afAb4oM0CMrjdagks',
+  );
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+// MyApp now needs to be a ConsumerWidget to access the router provider
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the goRouterProvider
+    final router = ref.watch(goRouterProvider);
+
+    return MaterialApp.router(
       title: 'Kowairo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Kowairo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text(widget.title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.headlineMedium),
-          ],
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: ColorName.primaryBackground,
+        primaryColor: ColorName.primaryText,
+        textTheme: Theme.of(context).textTheme.apply(
+          bodyColor: ColorName.primaryText, // Default text color for body
+          displayColor: ColorName.primaryText, // Default text color for headlines
         ),
+        dividerColor: ColorName.borderColor,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      // Use the routerConfig from GoRouter
+      routerConfig: router,
     );
   }
 }

@@ -15,21 +15,10 @@ class Auth extends _$Auth {
   Future<void> signInWithPassword(String email, String password) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final authResponse = await ref.read(supabaseClientProvider).auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
-      return authResponse.user;
-    });
-  }
-
-  Future<void> signUp(String email, String password) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final authResponse = await ref.read(supabaseClientProvider).auth.signUp(
-        email: email,
-        password: password,
-      );
+      final authResponse = await ref
+          .read(supabaseClientProvider)
+          .auth
+          .signInWithPassword(email: email, password: password);
       return authResponse.user;
     });
   }

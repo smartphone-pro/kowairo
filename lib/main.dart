@@ -31,13 +31,17 @@ class MyApp extends ConsumerWidget {
       title: 'Kowairo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: ColorName.primaryBackground,
-        primaryColor: ColorName.primaryText,
-        textTheme: Theme.of(context).textTheme.apply(
-          bodyColor: ColorName.primaryText, // Default text color for body
-          displayColor: ColorName.primaryText, // Default text color for headlines
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(color: AppColors.primaryText, fontSize: 22, fontWeight: FontWeight.w600),
         ),
-        dividerColor: ColorName.borderColor,
+        scaffoldBackgroundColor: AppColors.primaryBackground,
+        primaryColor: AppColors.primaryText,
+        textTheme: Theme.of(context).textTheme.apply(
+          bodyColor: AppColors.primaryText, // Default text color for body
+          displayColor: AppColors.primaryText, // Default text color for headlines
+        ),
+        dividerColor: AppColors.borderColor,
       ),
       // Use the routerConfig from GoRouter
       routerConfig: router,

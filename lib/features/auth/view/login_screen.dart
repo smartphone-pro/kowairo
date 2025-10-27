@@ -77,7 +77,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: ColorName.secondaryBackground,
+                        fillColor: AppColors.secondaryBackground,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -108,7 +108,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         border: const OutlineInputBorder(),
                         filled: true,
-                        fillColor: ColorName.secondaryBackground,
+                        fillColor: AppColors.secondaryBackground,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -130,8 +130,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       onPressed: authState.isLoading ? null : _handleLogin,
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: ColorName.primaryColor,
-                        disabledBackgroundColor: ColorName.grayColor,
+                        backgroundColor: AppColors.primaryColor,
+                        disabledBackgroundColor: AppColors.grayColor,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
                       ),
@@ -145,13 +145,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                             )
                           : const Text('ログイン', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Register Link
-                    TextButton(
-                      onPressed: () => context.go('/register'),
-                      child: const Text('アカウントをお持ちでない方はこちら', style: TextStyle(color: ColorName.primaryColor)),
                     ),
 
                     const SizedBox(height: 40),

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:kowairo/features/auth/provider/auth_provider.dart';
 import 'package:kowairo/features/auth/view/login_screen.dart';
-import 'package:kowairo/features/auth/view/register_screen.dart';
 import 'package:kowairo/features/patient_list/view/patient_list_screen.dart';
 import 'package:kowairo/features/patient_detail/view/patient_detail_screen.dart';
 
@@ -63,7 +62,6 @@ GoRouter goRouter(Ref ref) {
     },
     routes: [
       GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
-      GoRoute(path: '/register', builder: (context, state) => const RegisterScreen()),
       GoRoute(
         path: '/patients',
         builder: (context, state) => const PatientListScreen(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kowairo/core/routing/app_router.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -29,19 +30,33 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       title: 'Kowairo',
+      locale: const Locale('ja', 'JP'),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('ja', 'JP'), Locale('en', 'US')],
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.primaryBackground,
           centerTitle: true,
           titleTextStyle: TextStyle(color: AppColors.primaryText, fontSize: 22, fontWeight: FontWeight.w600),
         ),
-        scaffoldBackgroundColor: AppColors.primaryBackground,
+        scaffoldBackgroundColor: Colors.white,
         primaryColor: AppColors.primaryText,
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: AppColors.primaryText, // Default text color for body
           displayColor: AppColors.primaryText, // Default text color for headlines
         ),
         dividerColor: AppColors.borderColor,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
+            borderSide: const BorderSide(color: AppColors.borderColor),
+          ),
+        ),
       ),
       // Use the routerConfig from GoRouter
       routerConfig: router,

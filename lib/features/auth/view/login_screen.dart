@@ -51,6 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: AppColors.primaryBackground,
       body: SafeArea(
         child: Center(
           child: SizedBox(

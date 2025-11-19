@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kowairo/core/routing/app_router.dart';
 import 'package:kowairo/gen/assets.gen.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -39,7 +40,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     // Listen to auth state changes and navigate on success
     ref.listen<AsyncValue<User?>>(authProvider, (previous, next) {
       if (next.hasValue && next.value != null) {
-        context.go('/patients');
+        context.go(RoutePath.patients.path);
       } else if (next.hasError) {
         ScaffoldMessenger.of(
           context,

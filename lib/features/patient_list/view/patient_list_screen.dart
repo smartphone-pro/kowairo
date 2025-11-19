@@ -9,6 +9,8 @@ import 'package:kowairo/core/api/user_service.dart';
 import 'package:kowairo/domain/entities/patient.dart';
 import 'package:kowairo/features/patient_list/widgets/patient_tile.dart';
 import 'package:kowairo/gen/assets.gen.dart';
+import 'package:kowairo/core/routing/app_router.dart';
+import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
 
 class PatientListScreen extends ConsumerStatefulWidget {
   const PatientListScreen({super.key});
@@ -122,15 +124,9 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
                           final patient = patients[index];
                           return PatientTile(
                             patient: patient,
-                            onVisitRecord: () {
-                              context.push('/patients/${patient.id}', extra: patient);
-                            },
-                            onConference: () {
-                              context.push('/patients/${patient.id}', extra: patient);
-                            },
-                            onMonthlyReport: () {
-                              context.push('/patients/${patient.id}', extra: patient);
-                            },
+                            onVisitRecord: () => _openPatientDetail(patient, PatientDetailTab.visitRecord),
+                            onConference: () => _openPatientDetail(patient, PatientDetailTab.conference),
+                            onMonthlyReport: () => _openPatientDetail(patient, PatientDetailTab.monthlyReport),
                           );
                         },
                       ),
@@ -139,6 +135,13 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
           );
         },
       ),
+    );
+  }
+
+  void _openPatientDetail(Patient patient, PatientDetailTab tab) {
+    context.push(
+      RoutePath.patientDetail.withId(patient.id),
+      extra: PatientDetailArgs(patient: patient, initialTab: tab),
     );
   }
 }

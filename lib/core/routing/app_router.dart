@@ -5,11 +5,43 @@ import 'package:kowairo/features/auth/provider/auth_provider.dart';
 import 'package:kowairo/features/auth/view/login_screen.dart';
 import 'package:kowairo/features/patient_list/view/patient_list_screen.dart';
 import 'package:kowairo/features/patient_detail/view/patient_detail_screen.dart';
+import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
 
 part 'app_router.g.dart';
 
+enum RoutePath {
+  login('login'),
+  patients('patients'),
+  patientDetail('patients/:id');
+
+  const RoutePath(this.pathKey);
+
+  final String pathKey;
+
+  String get path => '/$pathKey';
+
+  String withId(String id) {
+    if (!pathKey.contains(':')) {
+      return path;
+    }
+    return '/${pathKey.replaceAll(':id', id)}';
+  }
+
+  bool matches(String location) {
+    if (!pathKey.contains(':')) {
+      return location == path;
+    }
+    final templatedPattern = path.replaceAllMapped(RegExp(r':[^/]+'), (_) => r'[^/]+');
+    return RegExp('^$templatedPattern\$').hasMatch(location);
+  }
+}
+
 // Private routes that require the user to be logged in
-const privateRoutes = ['/patients', '/patients/:id'];
+const privateRoutes = [RoutePath.patients, RoutePath.patientDetail];
+
+bool _isPrivateRoute(String location) {
+  return privateRoutes.any((route) => route.matches(location));
+}
 
 @riverpod
 GoRouter goRouter(Ref ref) {
@@ -17,7 +49,7 @@ GoRouter goRouter(Ref ref) {
   final authState = ref.watch(authProvider);
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: RoutePath.login.path,
 
     errorBuilder: (context, state) => Scaffold(body: Center(child: Text('Page not found: ${state.error}'))),
 
@@ -36,19 +68,19 @@ GoRouter goRouter(Ref ref) {
       // The user is fully authenticated only if they are logged in AND verified.
       final isAuthenticated = isLoggedIn && isEmailVerified;
 
-      final isLoggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/register';
+      final isLoggingIn = state.matchedLocation == RoutePath.login.path;
 
       // If the user is NOT authenticated and is trying to access a private route,
       // redirect them to the login page.
-      if (!isAuthenticated && privateRoutes.contains(state.matchedLocation)) {
+      if (!isAuthenticated && _isPrivateRoute(state.matchedLocation)) {
         // You could also redirect to a "please verify your email" screen here
-        return '/login';
+        return RoutePath.login.path;
       }
 
       // If the user IS authenticated and tries to go to login/register,
       // redirect them to the main patient list.
       if (isAuthenticated && isLoggingIn) {
-        return '/patients';
+        return RoutePath.patients.path;
       }
 
       // If a user is logged in but their email is not verified,
@@ -61,20 +93,15 @@ GoRouter goRouter(Ref ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+      GoRoute(path: RoutePath.login.path, builder: (context, state) => const LoginScreen()),
+      GoRoute(path: RoutePath.patients.path, builder: (context, state) => const PatientListScreen()),
       GoRoute(
-        path: '/patients',
-        builder: (context, state) => const PatientListScreen(),
-        routes: [
-          // Nested route for patient details
-          GoRoute(
-            path: ':id', // e.g., /patients/123
-            builder: (context, state) {
-              final patientId = state.pathParameters['id']!;
-              return PatientDetailScreen(patientId: patientId);
-            },
-          ),
-        ],
+        path: RoutePath.patientDetail.path,
+        builder: (context, state) {
+          final patientId = state.pathParameters['id']!;
+          final args = state.extra is PatientDetailArgs ? state.extra as PatientDetailArgs : null;
+          return PatientDetailScreen(patientId: patientId, args: args);
+        },
       ),
     ],
   );

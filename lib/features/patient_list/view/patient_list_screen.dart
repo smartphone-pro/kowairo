@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kowairo/core/widgets/async_value_widget.dart';
 import 'package:kowairo/domain/entities/user.dart';
 import 'package:kowairo/features/auth/provider/auth_provider.dart';
@@ -122,13 +123,13 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
                           return PatientTile(
                             patient: patient,
                             onVisitRecord: () {
-                              // TODO: Navigate to visit record screen
+                              context.push('/patients/${patient.id}', extra: patient);
                             },
                             onConference: () {
-                              // TODO: Navigate to conference screen
+                              context.push('/patients/${patient.id}', extra: patient);
                             },
                             onMonthlyReport: () {
-                              // TODO: Navigate to monthly report screen
+                              context.push('/patients/${patient.id}', extra: patient);
                             },
                           );
                         },

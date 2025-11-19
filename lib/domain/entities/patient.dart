@@ -58,8 +58,8 @@ abstract class Patient with _$Patient {
     String? address,
     String? emergencyContact,
     String? notes,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @DateTimeConverter() DateTime? createdAt,
+    @DateTimeConverter() DateTime? updatedAt,
   }) = _Patient;
 
   factory Patient.fromJson(Map<String, Object?> json) =>

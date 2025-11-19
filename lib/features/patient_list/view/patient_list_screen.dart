@@ -9,12 +9,32 @@ import 'package:kowairo/domain/entities/patient.dart';
 import 'package:kowairo/features/patient_list/widgets/patient_tile.dart';
 import 'package:kowairo/gen/assets.gen.dart';
 
-class PatientListScreen extends ConsumerWidget {
+class PatientListScreen extends ConsumerStatefulWidget {
   const PatientListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final patientsAsync = ref.watch(patientListProvider);
+  ConsumerState<PatientListScreen> createState() => _PatientListScreenState();
+}
+
+class _PatientListScreenState extends ConsumerState<PatientListScreen> {
+  late final TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    final keyword = ref.read(patientSearchKeywordProvider);
+    _searchController = TextEditingController(text: keyword);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final patientsAsync = ref.watch(filteredPatientListProvider);
     final userService = ref.watch(userServiceProvider);
 
     return Scaffold(
@@ -54,9 +74,6 @@ class PatientListScreen extends ConsumerWidget {
       body: AsyncValueWidget<List<Patient>>(
         value: patientsAsync,
         data: (patients) {
-          if (patients.isEmpty) {
-            return const Center(child: Text('患者が見つかりません。'));
-          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -66,8 +83,29 @@ class PatientListScreen extends ConsumerWidget {
                   children: [
                     SizedBox(
                       width: 420,
-                      child: TextField(
-                        decoration: InputDecoration(hintText: '患者の名前を入力', prefixIcon: Icon(Icons.search)),
+                      child: ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _searchController,
+                        builder: (context, value, _) {
+                          final hasText = value.text.isNotEmpty;
+                          return TextField(
+                            controller: _searchController,
+                            onChanged: (newValue) =>
+                                ref.read(patientSearchKeywordProvider.notifier).updateKeyword(newValue),
+                            decoration: InputDecoration(
+                              hintText: '患者の名前を入力',
+                              prefixIcon: const Icon(Icons.search),
+                              suffixIcon: hasText
+                                  ? IconButton(
+                                      icon: const Icon(Icons.clear),
+                                      onPressed: () {
+                                        _searchController.clear();
+                                        ref.read(patientSearchKeywordProvider.notifier).updateKeyword('');
+                                      },
+                                    )
+                                  : null,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -75,24 +113,26 @@ class PatientListScreen extends ConsumerWidget {
               ),
               Divider(height: 1),
               Expanded(
-                child: ListView.builder(
-                  itemCount: patients.length,
-                  itemBuilder: (context, index) {
-                    final patient = patients[index];
-                    return PatientTile(
-                      patient: patient,
-                      onVisitRecord: () {
-                        // TODO: Navigate to visit record screen
-                      },
-                      onConference: () {
-                        // TODO: Navigate to conference screen
-                      },
-                      onMonthlyReport: () {
-                        // TODO: Navigate to monthly report screen
-                      },
-                    );
-                  },
-                ),
+                child: patients.isEmpty
+                    ? const Center(child: Text('患者が見つかりません。'))
+                    : ListView.builder(
+                        itemCount: patients.length,
+                        itemBuilder: (context, index) {
+                          final patient = patients[index];
+                          return PatientTile(
+                            patient: patient,
+                            onVisitRecord: () {
+                              // TODO: Navigate to visit record screen
+                            },
+                            onConference: () {
+                              // TODO: Navigate to conference screen
+                            },
+                            onMonthlyReport: () {
+                              // TODO: Navigate to monthly report screen
+                            },
+                          );
+                        },
+                      ),
               ),
             ],
           );

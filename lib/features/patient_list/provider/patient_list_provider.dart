@@ -18,3 +18,23 @@ Future<List<Patient>> patientList(Ref ref) async {
 
   return patients;
 }
+
+@riverpod
+class PatientSearchKeyword extends _$PatientSearchKeyword {
+  @override
+  String build() => '';
+
+  void updateKeyword(String value) => state = value;
+}
+
+@riverpod
+AsyncValue<List<Patient>> filteredPatientList(Ref ref) {
+  final patientsAsync = ref.watch(patientListProvider);
+  final keyword = ref.watch(patientSearchKeywordProvider).trim().toLowerCase();
+
+  if (keyword.isEmpty) return patientsAsync;
+
+  return patientsAsync.whenData(
+    (patients) => patients.where((patient) => patient.fullName.toLowerCase().contains(keyword)).toList(),
+  );
+}

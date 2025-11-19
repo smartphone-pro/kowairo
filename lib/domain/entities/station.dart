@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'date_time_converter.dart';
+
 part 'station.freezed.dart';
 
 part 'station.g.dart';
@@ -10,14 +12,20 @@ abstract class Station with _$Station {
     required String id,
     required String name,
     required String address,
-    String? phone,
+    required String phone,
     String? email,
+    @DateTimeConverter() required DateTime createdAt,
+    @DateTimeConverter() required DateTime updatedAt,
+
+    /// ステーションの説明文
     String? description,
-    String? directorName,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+
+    /// ステーション管理者名
+    required String directorName,
+
+    /// ステーションの有効/無効状態
+    @Default(true) bool isActive,
   }) = _Station;
 
-  factory Station.fromJson(Map<String, dynamic> json) =>
-      _$StationFromJson(json);
+  factory Station.fromJson(Map<String, dynamic> json) => _$StationFromJson(json);
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'date_time_converter.dart';
 
 part 'patient.freezed.dart';
@@ -10,14 +11,16 @@ enum Gender {
   male,
   @JsonValue('female')
   female,
+  @JsonValue('other')
+  other,
 }
 
-class GenderConverter implements JsonConverter<Gender?, String?> {
+class GenderConverter implements JsonConverter<Gender?, String> {
   const GenderConverter();
 
   @override
-  Gender? fromJson(String? json) {
-    if (json == null || json.isEmpty) {
+  Gender? fromJson(String json) {
+    if (json.isEmpty) {
       return null;
     }
 
@@ -26,20 +29,24 @@ class GenderConverter implements JsonConverter<Gender?, String?> {
         return Gender.male;
       case 'female':
         return Gender.female;
+      case 'other':
+        return Gender.other;
       default:
         return null;
     }
   }
 
   @override
-  String? toJson(Gender? object) {
-    if (object == null) return null;
+  String toJson(Gender? object) {
+    if (object == null) return '';
 
     switch (object) {
       case Gender.male:
         return 'male';
       case Gender.female:
         return 'female';
+      case Gender.other:
+        return 'other';
     }
   }
 }
@@ -58,12 +65,12 @@ abstract class Patient with _$Patient {
     String? address,
     String? emergencyContact,
     String? notes,
-    @DateTimeConverter() DateTime? createdAt,
-    @DateTimeConverter() DateTime? updatedAt,
+    @Default(true) bool isActive,
+    @DateTimeConverter() required DateTime createdAt,
+    @DateTimeConverter() required DateTime updatedAt,
   }) = _Patient;
 
-  factory Patient.fromJson(Map<String, Object?> json) =>
-      _$PatientFromJson(json);
+  factory Patient.fromJson(Map<String, Object?> json) => _$PatientFromJson(json);
 
   const Patient._();
 
@@ -72,8 +79,7 @@ abstract class Patient with _$Patient {
     if (birthday == null) return 0;
     final now = DateTime.now();
     final age = now.year - birthday.year;
-    if (now.month < birthday.month ||
-        (now.month == birthday.month && now.day < birthday.day)) {
+    if (now.month < birthday.month || (now.month == birthday.month && now.day < birthday.day)) {
       return age - 1;
     }
     return age;

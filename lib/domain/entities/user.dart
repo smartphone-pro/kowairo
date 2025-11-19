@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'date_time_converter.dart';
+
 part 'user.freezed.dart';
 
 part 'user.g.dart';
@@ -53,14 +55,23 @@ class UserRoleConverter implements JsonConverter<UserRole?, String?> {
 abstract class User with _$User {
   const factory User({
     required String id,
-    required String fullName,
+
+    /// メールアドレス（任意、ダミーアドレス可）
+    String? email,
+    String? fullName,
     @UserRoleConverter() required UserRole role,
-    required String stationId,
+    String? stationId,
     String? phone,
+    @Default(true) bool isActive,
+    @DateTimeConverter() DateTime? lastActivity,
+    @DateTimeConverter() required DateTime createdAt,
+    @DateTimeConverter() required DateTime updatedAt,
+
+    /// ログイン時に使用するユーザー名（メールアドレスがない場合）
     String? username,
+
+    /// 従業員番号（看護師の識別用）
     String? employeeId,
-    DateTime? createdAt,
-    DateTime? updatedAt,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

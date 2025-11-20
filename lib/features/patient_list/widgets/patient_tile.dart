@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kowairo/domain/entities/patient.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 
@@ -30,14 +29,9 @@ class PatientTile extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               // 生年月日と年齢
-              if (patient.dateOfBirth != null) ...[
-                Text(
-                  '${DateFormat.yMMMd('ja').format(patient.dateOfBirth!)}生',
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
-                ),
-                const SizedBox(width: 5),
-              ],
-              Text('${patient.age}歳', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
+              Text(patient.birthday, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
+              const SizedBox(width: 5),
+              Text(patient.age, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
               const SizedBox(width: 20),
               // 訪問記録ボタン
               ElevatedButton(

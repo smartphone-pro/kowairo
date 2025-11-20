@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 import 'date_time_converter.dart';
 
@@ -74,14 +75,20 @@ abstract class Patient with _$Patient {
 
   const Patient._();
 
-  int get age {
+  String get age {
     final birthday = dateOfBirth;
-    if (birthday == null) return 0;
+    if (birthday == null) return '';
     final now = DateTime.now();
     final age = now.year - birthday.year;
     if (now.month < birthday.month || (now.month == birthday.month && now.day < birthday.day)) {
-      return age - 1;
+      return '${age - 1}歳';
     }
-    return age;
+    return '$age歳';
+  }
+
+  String get birthday {
+    final birthday = dateOfBirth;
+    if (birthday == null) return '';
+    return '${DateFormat.yMMMMd('ja').format(birthday)}生';
   }
 }

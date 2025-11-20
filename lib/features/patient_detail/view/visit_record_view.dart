@@ -5,6 +5,6 @@ class VisitRecordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(child: Text('訪問記録画面'));
   }
 }

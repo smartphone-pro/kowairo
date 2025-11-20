@@ -5,6 +5,6 @@ class MonthlyReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(child: Text('月次レポート画面'));
   }
 }

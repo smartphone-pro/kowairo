@@ -7,4 +7,5 @@
     <color name="borderColor">#CCCCCC</color>
     <color name="grayColor">#CCCCCC</color>
     <color name="lightGrayColor">#F4F4F4</color>
+    <color name="blueColor">#C9E7FF</color>
 </resources>

@@ -16,7 +16,7 @@ class TopTabBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(tabIndexProvider);
-    debugPrint('index: $index');
+
     return Row(
       spacing: 20,
       children: List.generate(_tabs.length, (i) {

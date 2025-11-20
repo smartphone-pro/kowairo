@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kowairo/domain/entities/time_of_day_converter.dart';
 
 import 'date_time_converter.dart';
 
@@ -53,8 +55,8 @@ abstract class VisitRecord with _$VisitRecord {
     required String userId,
     required String patientId,
     @DateTimeConverter() required DateTime visitDate,
-    @DateTimeConverter() required DateTime visitStartTime,
-    @DateTimeConverter() DateTime? visitEndTime,
+    @TimeOfDayConverter() required TimeOfDay visitStartTime,
+    @TimeOfDayConverter() TimeOfDay? visitEndTime,
     @RecordStatusConverter() required RecordStatus status,
     String? notes,
     @DateTimeConverter() required DateTime createdAt,

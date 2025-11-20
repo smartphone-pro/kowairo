@@ -21,7 +21,7 @@ class VisitRecordView extends ConsumerWidget {
         return ListView.separated(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           itemBuilder: (context, index) => _VisitRecordTile(record: records[index]),
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          separatorBuilder: (_, _) => const SizedBox(height: 12),
           itemCount: records.length,
         );
       },
@@ -53,8 +53,8 @@ class _VisitRecordTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateText = DateFormat('yyyy/MM/dd').format(record.visitDate);
-    final start = DateFormat('HH:mm').format(record.visitStartTime);
-    final end = record.visitEndTime != null ? DateFormat('HH:mm').format(record.visitEndTime!) : '--:--';
+    final start = record.visitStartTime.format(context);
+    final end = record.visitEndTime != null ? record.visitEndTime!.format(context) : '--:--';
 
     return Card(
       child: ListTile(

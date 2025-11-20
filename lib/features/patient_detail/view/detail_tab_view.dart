@@ -11,7 +11,7 @@ class DetailTabView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(tapIndexProvider);
+    final index = ref.watch(tabIndexProvider);
 
     switch (index) {
       case 0:

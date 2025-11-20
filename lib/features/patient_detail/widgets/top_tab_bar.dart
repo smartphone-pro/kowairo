@@ -15,7 +15,7 @@ class TopTabBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(tapIndexProvider);
+    final index = ref.watch(tabIndexProvider);
     debugPrint('index: $index');
     return Row(
       spacing: 20,
@@ -25,7 +25,7 @@ class TopTabBar extends ConsumerWidget {
         return Expanded(
           flex: i == 0 ? 2 : 1,
           child: GestureDetector(
-            onTap: () => ref.read(tapIndexProvider.notifier).setTab(i),
+            onTap: () => ref.read(tabIndexProvider.notifier).setTab(i),
             child: AnimatedContainer(
               padding: const EdgeInsets.symmetric(vertical: 9),
               duration: const Duration(milliseconds: 180),

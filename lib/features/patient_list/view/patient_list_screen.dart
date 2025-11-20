@@ -140,7 +140,7 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
   }
 
   void _openPatientDetail(Patient patient, PatientDetailTab tab) {
-    ref.read(tapIndexProvider.notifier).setTab(tab.index);
+    ref.read(tabIndexProvider.notifier).setTab(tab.index);
     debugPrint('selected tab: ${tab.index}');
     context.push(
       RoutePath.patientDetail.withId(patient.id),

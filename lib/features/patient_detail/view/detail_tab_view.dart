@@ -7,7 +7,9 @@ import 'monthly_report_view.dart';
 import 'visit_record_view.dart';
 
 class DetailTabView extends ConsumerWidget {
-  const DetailTabView({super.key});
+  const DetailTabView({required this.patientId, super.key});
+
+  final String patientId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,7 +17,7 @@ class DetailTabView extends ConsumerWidget {
 
     switch (index) {
       case 0:
-        return VisitRecordView();
+        return VisitRecordView(patientId: patientId);
       case 1:
         return ConferenceView();
       case 2:

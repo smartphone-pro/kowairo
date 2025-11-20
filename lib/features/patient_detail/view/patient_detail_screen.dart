@@ -60,7 +60,7 @@ class _PatientDetailScreenState extends ConsumerState<PatientDetailScreen> {
           child: Padding(padding: const EdgeInsets.symmetric(horizontal: 30), child: const TopTabBar()),
         ),
       ),
-      body: const DetailTabView(),
+      body: DetailTabView(patientId: widget.patientId),
     );
   }
 }

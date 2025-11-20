@@ -2,19 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
+import 'package:kowairo/features/patient_detail/provider/tab_index_provider.dart';
 import 'package:kowairo/features/patient_detail/view/detail_tab_view.dart';
 import 'package:kowairo/features/patient_detail/widgets/back_list_button.dart';
 import 'package:kowairo/features/patient_detail/widgets/top_tab_bar.dart';
 
-class PatientDetailScreen extends ConsumerWidget {
+class PatientDetailScreen extends ConsumerStatefulWidget {
   const PatientDetailScreen({required this.patientId, this.args, super.key});
 
   final String patientId;
   final PatientDetailArgs? args;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final extra = args ?? GoRouterState.of(context).extra as PatientDetailArgs?;
+  ConsumerState<PatientDetailScreen> createState() => _PatientDetailScreenState();
+}
+
+class _PatientDetailScreenState extends ConsumerState<PatientDetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final extra = widget.args ?? GoRouterState.of(context).extra as PatientDetailArgs?;
+    final initialTabIndex = extra?.initialTab.index;
+    if (initialTabIndex != null) {
+      Future.microtask(() => ref.read(tabIndexProvider.notifier).setTab(initialTabIndex));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final extra = widget.args ?? GoRouterState.of(context).extra as PatientDetailArgs?;
     final patient = extra?.patient;
 
     if (patient == null) {

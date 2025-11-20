@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kowairo/core/widgets/async_value_widget.dart';
 import 'package:kowairo/domain/entities/user.dart';
 import 'package:kowairo/features/auth/provider/auth_provider.dart';
-import 'package:kowairo/features/patient_detail/provider/tab_index_provider.dart';
 import 'package:kowairo/features/patient_list/provider/patient_list_provider.dart';
 import 'package:kowairo/core/api/user_service.dart';
 import 'package:kowairo/domain/entities/patient.dart';
@@ -140,8 +139,6 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
   }
 
   void _openPatientDetail(Patient patient, PatientDetailTab tab) {
-    ref.read(tabIndexProvider.notifier).setTab(tab.index);
-    debugPrint('selected tab: ${tab.index}');
     context.push(
       RoutePath.patientDetail.withId(patient.id),
       extra: PatientDetailArgs(patient: patient, initialTab: tab),

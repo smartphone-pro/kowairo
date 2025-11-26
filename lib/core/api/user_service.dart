@@ -1,7 +1,7 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:kowairo/core/api/supabase_client.dart';
 import 'package:kowairo/domain/entities/user.dart' as app_user;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'user_service.g.dart';
 
@@ -36,6 +36,6 @@ class UserService {
     final user = getCurrentUser();
     if (user == null) return null;
 
-    return await getUserProfile(user.id);
+    return getUserProfile(user.id);
   }
 }

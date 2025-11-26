@@ -9,4 +9,6 @@
     <color name="lightGrayColor">#F4F4F4</color>
     <color name="blueColor">#C9E7FF</color>
     <color name="lightBlueColor">#EEF8FF</color>
+    <color name="orange">#F4A54B</color>
+    <color name="red">#EC6564</color>
 </resources>

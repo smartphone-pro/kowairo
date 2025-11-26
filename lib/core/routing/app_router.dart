@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:kowairo/features/auth/provider/auth_provider.dart';
 import 'package:kowairo/features/auth/view/login_screen.dart';
-import 'package:kowairo/features/patient_list/view/patient_list_screen.dart';
-import 'package:kowairo/features/patient_detail/view/patient_detail_screen.dart';
 import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
+import 'package:kowairo/features/patient_detail/view/patient_detail_screen.dart';
+import 'package:kowairo/features/patient_list/view/patient_list_screen.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
 

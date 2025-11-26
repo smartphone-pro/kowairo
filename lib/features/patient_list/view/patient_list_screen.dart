@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kowairo/core/api/user_service.dart';
+import 'package:kowairo/core/routing/app_router.dart';
 import 'package:kowairo/core/widgets/async_value_widget.dart';
+import 'package:kowairo/domain/entities/patient.dart';
 import 'package:kowairo/domain/entities/user.dart';
 import 'package:kowairo/features/auth/provider/auth_provider.dart';
+import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
 import 'package:kowairo/features/patient_list/provider/patient_list_provider.dart';
-import 'package:kowairo/core/api/user_service.dart';
-import 'package:kowairo/domain/entities/patient.dart';
 import 'package:kowairo/features/patient_list/widgets/patient_tile.dart';
 import 'package:kowairo/gen/assets.gen.dart';
-import 'package:kowairo/core/routing/app_router.dart';
-import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
 
 class PatientListScreen extends ConsumerStatefulWidget {
   const PatientListScreen({super.key});
@@ -114,7 +114,7 @@ class _PatientListScreenState extends ConsumerState<PatientListScreen> {
                   ],
                 ),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               Expanded(
                 child: patients.isEmpty
                     ? const Center(child: Text('患者が見つかりません。'))

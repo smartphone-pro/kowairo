@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kowairo/core/routing/app_router.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -31,7 +31,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Kowairo',
       locale: const Locale('ja', 'JP'),
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -39,7 +39,7 @@ class MyApp extends ConsumerWidget {
       supportedLocales: const [Locale('ja', 'JP'), Locale('en', 'US')],
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.primaryBackground,
           centerTitle: true,
           titleTextStyle: TextStyle(color: AppColors.primaryText, fontSize: 22, fontWeight: FontWeight.w600),

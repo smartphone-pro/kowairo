@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kowairo/domain/entities/date_time_converter.dart';
 import 'package:kowairo/domain/entities/time_of_day_converter.dart';
-
-import 'date_time_converter.dart';
 
 part 'visit_record.freezed.dart';
 

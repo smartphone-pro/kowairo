@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'date_time_converter.dart';
+import 'package:kowairo/domain/entities/date_time_converter.dart';
 
 part 'conference.freezed.dart';
 

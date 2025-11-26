@@ -90,8 +90,8 @@ class VisitRecordTile extends ConsumerWidget {
             child: Row(
               spacing: 10,
               children: [
-                Expanded(
-                  child: const Text('S: 主観的情報（患者の訴え）', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const Expanded(
+                  child: Text('S: 主観的情報（患者の訴え）', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
                 GrayButton(label: '編集', onPressed: () {}),
                 BlueButton(label: 'コピー', onPressed: () {}),
@@ -107,8 +107,8 @@ class VisitRecordTile extends ConsumerWidget {
             child: Row(
               spacing: 10,
               children: [
-                Expanded(
-                  child: const Text('O: 客観的情報（検査所見）', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const Expanded(
+                  child: Text('O: 客観的情報（検査所見）', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
                 GrayButton(label: '編集', onPressed: () {}),
                 BlueButton(label: 'コピー', onPressed: () {}),
@@ -124,8 +124,8 @@ class VisitRecordTile extends ConsumerWidget {
             child: Row(
               spacing: 10,
               children: [
-                Expanded(
-                  child: const Text('A/P: 評価・計画', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const Expanded(
+                  child: Text('A/P: 評価・計画', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
                 GrayButton(label: '編集', onPressed: () {}),
                 BlueButton(label: 'コピー', onPressed: () {}),
@@ -152,11 +152,8 @@ class VisitRecordTile extends ConsumerWidget {
             child: Row(
               spacing: 10,
               children: [
-                Expanded(
-                  child: const Text(
-                    '暮らしメモ（生活・価値観・支援体制など）',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
+                const Expanded(
+                  child: Text('暮らしメモ（生活・価値観・支援体制など）', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
                 GrayButton(label: '編集', onPressed: () {}),
               ],
@@ -171,8 +168,8 @@ class VisitRecordTile extends ConsumerWidget {
             child: Row(
               spacing: 10,
               children: [
-                Expanded(
-                  child: const Text('SBAR', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const Expanded(
+                  child: Text('SBAR', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
                 GrayButton(label: 'オプション', onPressed: () {}),
                 BlueButton(label: record.soapAssessmentPlan == null ? '生成する' : 'コピー', onPressed: () {}),

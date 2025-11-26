@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kowairo/core/routing/app_router.dart';
+import 'package:kowairo/features/auth/provider/auth_provider.dart';
 import 'package:kowairo/gen/assets.gen.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:kowairo/features/auth/provider/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -74,7 +74,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'メールアドレス',
                         prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(),

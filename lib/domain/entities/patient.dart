@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-
-import 'date_time_converter.dart';
+import 'package:kowairo/domain/entities/date_time_converter.dart';
 
 part 'patient.freezed.dart';
 

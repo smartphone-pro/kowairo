@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kowairo/features/patient_detail/model/recording_state.dart';
 import 'package:kowairo/features/patient_detail/provider/recording_controller.dart';
 import 'package:kowairo/gen/colors.gen.dart';
 
@@ -9,7 +10,7 @@ class BackListButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final canBack = ref.watch(recordingControllerProvider) == RecordingStatus.normal;
+    final canBack = ref.watch(recordingControllerProvider).status == RecordingStatus.normal;
 
     return Padding(
       padding: const EdgeInsets.only(left: 30),

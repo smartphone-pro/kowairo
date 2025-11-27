@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kowairo/core/routing/app_router.dart';
 import 'package:kowairo/gen/colors.gen.dart';
+import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+final logger = Logger(level: kReleaseMode ? Level.off : Level.debug);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

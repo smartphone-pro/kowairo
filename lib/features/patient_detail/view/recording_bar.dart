@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kowairo/features/patient_detail/model/recording_state.dart';
 import 'package:kowairo/features/patient_detail/provider/recording_controller.dart';
 import 'package:kowairo/gen/assets.gen.dart';
 import 'package:kowairo/gen/colors.gen.dart';
@@ -21,9 +22,9 @@ class _BarContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final status = ref.watch(recordingControllerProvider);
+    final recordingState = ref.watch(recordingControllerProvider);
 
-    switch (status) {
+    switch (recordingState.status) {
       case RecordingStatus.normal:
         return _NormalContent(onTapRecord: () => ref.read(recordingControllerProvider.notifier).startRecording());
       case RecordingStatus.recording:

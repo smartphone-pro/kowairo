@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kowairo/features/patient_detail/model/patient_detail_args.dart';
+import 'package:kowairo/features/patient_detail/model/recording_state.dart';
 import 'package:kowairo/features/patient_detail/provider/recording_controller.dart';
 import 'package:kowairo/features/patient_detail/provider/tab_index_provider.dart';
 import 'package:kowairo/gen/colors.gen.dart';
@@ -17,7 +18,7 @@ class TopTabBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(tabIndexProvider);
-    final recordingStatus = ref.watch(recordingControllerProvider);
+    final recordingState = ref.watch(recordingControllerProvider);
 
     return Row(
       spacing: 20,
@@ -27,7 +28,7 @@ class TopTabBar extends ConsumerWidget {
         return Expanded(
           flex: i == 0 ? 2 : 1,
           child: GestureDetector(
-            onTap: recordingStatus == RecordingStatus.normal
+            onTap: recordingState.status == RecordingStatus.normal
                 ? () => ref.read(tabIndexProvider.notifier).setTab(i)
                 : null,
             child: AnimatedContainer(

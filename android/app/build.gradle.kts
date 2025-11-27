@@ -24,6 +24,7 @@ kotlin {
 android {
     namespace = "com.industria.kowairo"
     compileSdk = 36
+    ndkVersion = "29.0.14206865"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

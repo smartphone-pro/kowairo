@@ -92,12 +92,7 @@ class _RecordingContent extends StatelessWidget {
             ),
           ),
           InkWell(onTap: onTapStop, child: Assets.icons.icStop.svg()),
-          const Expanded(
-            child: Text(
-              '昨日、転びそうになったけど手すりにつかまってなんとか大',
-              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),
-            ),
-          ),
+          const Spacer(),
         ],
       ),
     );
